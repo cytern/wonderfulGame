@@ -29,7 +29,6 @@ public class GameRunningData {
      * 是否开启垂直同步
      */
     private boolean vSync;
-
     /**
      * 构造时初始化
      */

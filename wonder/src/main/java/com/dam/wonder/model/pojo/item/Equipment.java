@@ -1,5 +1,6 @@
 package com.dam.wonder.model.pojo.item;
 
+import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
 
 /**
@@ -23,4 +24,6 @@ public class Equipment {
      * 部位
      */
     private String part;
+
+    private Integer type = Constant.ItemCode.ITEM_EQUIPMENT;
 }

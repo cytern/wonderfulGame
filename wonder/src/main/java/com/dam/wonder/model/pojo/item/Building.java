@@ -1,5 +1,6 @@
 package com.dam.wonder.model.pojo.item;
 
+import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
 import java.util.List;
 
@@ -40,5 +41,7 @@ public class Building extends Item {
      * 宽度
      */
     private Integer width;
+
+    private Integer type = Constant.ItemCode.ITEM_BUILDING;
 
 }

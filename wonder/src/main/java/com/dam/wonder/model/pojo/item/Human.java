@@ -1,5 +1,6 @@
 package com.dam.wonder.model.pojo.item;
 
+import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
 
 import java.util.List;
@@ -39,4 +40,5 @@ public class Human extends Item {
      */
     private Integer speed;
 
+    private Integer type = Constant.ItemCode.ITEM_HUMAN;
 }

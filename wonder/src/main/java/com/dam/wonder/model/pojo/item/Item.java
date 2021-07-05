@@ -1,5 +1,6 @@
 package com.dam.wonder.model.pojo.item;
 
+import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
 import org.lwjgl.system.CallbackI;
 
@@ -32,7 +33,7 @@ public class Item {
     /**
      * 物品类型
      */
-    private Integer type;
+    private Integer type = Constant.ItemCode.ITEM_BASE;
 
     /**
      * x坐标
