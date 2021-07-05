@@ -1,9 +1,9 @@
-package com.dam.wonder.model.pojo;
+package com.dam.wonder.model.pojo.item;
 
 import lombok.Data;
 
 @Data
-public class Skills extends Item{
+public class Skills extends Item {
     /**
      * 等级
      */

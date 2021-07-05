@@ -1,4 +1,4 @@
-package com.dam.wonder.model.pojo;
+package com.dam.wonder.model.pojo.item;
 
 import lombok.Data;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  * 建筑 2021-7-4 19:29:02
  */
 @Data
-public class Building extends Item{
+public class Building extends Item {
     /**
      * 主原材料
      */

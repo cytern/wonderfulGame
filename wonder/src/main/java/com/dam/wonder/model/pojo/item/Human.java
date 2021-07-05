@@ -1,11 +1,11 @@
-package com.dam.wonder.model.pojo;
+package com.dam.wonder.model.pojo.item;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class Human extends Item{
+public class Human extends Item {
     /**
      * 拥有的技能
      */

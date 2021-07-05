@@ -1,4 +1,4 @@
-package com.dam.wonder.model.pojo;
+package com.dam.wonder.model.pojo.item;
 
 /**
  * 地图
