@@ -12,6 +12,9 @@ public interface Constant {
     interface GameWindow {
         Integer HEIGHT = 720;
         Integer WIDTH = 1080;
+        String GAME_NAME = "奇妙物语";
+        Integer TARGET_FPS = 80;
+        Integer TARGET_UPS = 30;
     }
 
     /**

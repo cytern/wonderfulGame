@@ -21,6 +21,14 @@ public class GameRunningData {
      * 窗口宽度
      */
     private Integer windowWidth;
+    /**
+     * 游戏名
+     */
+    private String gameWindowName;
+    /**
+     * 是否开启垂直同步
+     */
+    private boolean vSync;
 
     /**
      * 构造时初始化
@@ -30,7 +38,8 @@ public class GameRunningData {
         this.gameRunning = true;
         this.windowHeight = Constant.GameWindow.HEIGHT;
         this.windowWidth = Constant.GameWindow.WIDTH;
-
+        this.gameWindowName = Constant.GameWindow.GAME_NAME;
+        this.vSync = true;
         log.info("初始化游戏参数 结束");
     }
 }

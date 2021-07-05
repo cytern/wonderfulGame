@@ -23,4 +23,9 @@ public interface GameWindow {
      * 启动
      */
     void start();
+
+    /**
+     * 循环
+     */
+    void loop();
 }
