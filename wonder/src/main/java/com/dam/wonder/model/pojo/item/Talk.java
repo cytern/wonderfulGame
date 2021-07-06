@@ -18,6 +18,19 @@ public class Talk extends Item{
      */
     private String humanCode;
     /**
+     * 触发着id
+     */
+    private String targetHumanCode;
+
+    /**
+     * 总date
+     */
+    private Integer date;
+    /**
+     * 星期几
+     */
+    private Integer week;
+    /**
      * 重写类型
      */
     private Integer type = Constant.ItemCode.ITEM_TALK;

@@ -108,4 +108,75 @@ public interface Constant {
          */
         Integer EMOTION_SEXY = 9;
     }
+
+    /**
+     * 季节
+     */
+    interface Season {
+        /**
+         * 春天
+         */
+        Integer SEASON_SPRING = 1;
+        /**
+         * 夏天
+         */
+        Integer SEASON_SUMMER = 2;
+        /**
+         * 秋天
+         */
+        Integer SEASON_AUTUMN = 3;
+        /**
+         * 冬天
+         */
+        Integer SEASON_WINTER = 4;
+        /**
+         * 全季节
+         */
+        Integer SEASON_ALL = 0;
+    }
+
+    /**
+     * 星期
+     */
+    interface Week {
+        /**
+         * 全星期
+         */
+        Integer WEEK_ALL = 0;
+        /**
+         * 星期一
+         */
+        Integer WEEK_MONDAY = 1;
+        /**
+         * 星期二
+         */
+        Integer WEEK_TUESDAY = 2;
+        /**
+         * 星期三
+         */
+        Integer WEEK_WEDNESDAY = 3;
+        /**
+         * 星期四
+         */
+        Integer WEEK_THURSDAY = 4;
+        /**
+         * 星期五
+         */
+        Integer WEEK_FRIDAY= 5;
+        /**
+         * 星期六
+         */
+        Integer WEEK_SATURDAY = 6;
+        /**
+         * 星期日
+         */
+        Integer WEEK_SUNDAY = 7;
+        /**
+         * 工作日
+         */
+        Integer WEEK_WORKDAY = 8;
+
+
+    }
+
 }
