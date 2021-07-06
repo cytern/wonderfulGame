@@ -45,9 +45,17 @@ public interface GameWindow {
     void setClearColor(float r,float g,float b,float alpha);
 
     /**
-     *
+     * 窗口变化事件
      */
     void resizedWindow ();
 
+    /**
+     * 输入反馈事件
+     */
     void input ();
+
+    /**
+     * 解除绑定事件
+     */
+    void cleanUp();
 }

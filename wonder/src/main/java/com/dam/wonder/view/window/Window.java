@@ -2,6 +2,7 @@ package com.dam.wonder.view.window;
 
 import com.dam.wonder.model.config.running.GameRunningData;
 import com.dam.wonder.view.render.Renderer;
+import com.dam.wonder.view.shader.ShaderProgram;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL20.glCreateProgram;
+import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.system.MemoryUtil.*;
 
 @Service
@@ -25,14 +28,17 @@ public class Window implements GameWindow {
     private final GameRunningData gameRunningData;
 
     private final Renderer renderer;
+
+    private final ShaderProgram shaderProgram;
     /**
      * 窗口编号
      */
     private long windowHandle;
 
-    public Window(GameRunningData gameRunningData, Renderer renderer) {
+    public Window(GameRunningData gameRunningData, Renderer renderer, ShaderProgram shaderProgram) {
         this.gameRunningData = gameRunningData;
         this.renderer = renderer;
+        this.shaderProgram = shaderProgram;
     }
 
     @Override
@@ -82,8 +88,6 @@ public class Window implements GameWindow {
 
         // Make the window visible
         glfwShowWindow(windowHandle);
-
-
         log.info("游戏初始化 结束");
     }
 
@@ -110,6 +114,17 @@ public class Window implements GameWindow {
          resizedWindow();
          setClearColor(gameRunningData.getColor(),gameRunningData.getColor(),gameRunningData.getColor(),0.0f);
          renderer.clear();
+         shaderProgram.bind();
+        // Bind to the VAO
+        glBindVertexArray(renderer.getVaoId());
+
+        // Draw the vertices
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // Restore state
+        glBindVertexArray(0);
+
+        shaderProgram.unbind();
     }
 
     /**
@@ -127,6 +142,7 @@ public class Window implements GameWindow {
         } finally {
            glfwTerminate();
            glfwSetErrorCallback(null).free();
+           cleanUp();
         }
 
     }
@@ -203,6 +219,14 @@ public class Window implements GameWindow {
          }else {
              gameRunningData.setDirection(0);
          }
+    }
+
+    /**
+     * 解除绑定事件
+     */
+    @Override
+    public void cleanUp() {
+        shaderProgram.cleanup();
     }
 
 }
