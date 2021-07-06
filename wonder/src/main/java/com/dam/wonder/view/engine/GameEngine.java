@@ -1,47 +1,48 @@
 package com.dam.wonder.view.engine;
 
-import com.dam.wonder.model.config.constant.Constant;
-import com.dam.wonder.model.config.running.GameRunningData;
-import com.dam.wonder.view.window.GameWindow;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import com.dam.wonder.view.game.IGameLogic;
+import com.dam.wonder.view.window.Window;
 
-@Slf4j
-@Service
-public class GameEngine{
-    private final GameWindow window;
+public class GameEngine implements Runnable {
+
+    public static final int TARGET_FPS = 75;
+
+    public static final int TARGET_UPS = 30;
+
+    private final Window window;
+
     private final Timer timer;
-    private final IGameLogic gameLogic;
-    private final GameRunningData gameRunningData;
 
-    public GameEngine(GameWindow window, Timer timer, IGameLogic gameLogic, GameRunningData gameRunningData) {
-        this.window = window;
-        this.timer = timer;
+    private final IGameLogic gameLogic;
+
+    public GameEngine(String windowTitle, int width, int height, boolean vSync, IGameLogic gameLogic) throws Exception {
+        window = new Window(windowTitle, width, height, vSync);
         this.gameLogic = gameLogic;
-        this.gameRunningData = gameRunningData;
+        timer = new Timer();
     }
 
-    public void init() throws Exception{
+    @Override
+    public void run() {
+        try {
+            init();
+            gameLoop();
+        } catch (Exception excp) {
+            excp.printStackTrace();
+        } finally {
+            cleanup();
+        }
+    }
+
+    protected void init() throws Exception {
         window.init();
         timer.init();
         gameLogic.init();
     }
-    @Async("taskPool")
-    public void run () {
-        try {
-            init();
-            gameLoop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-    }
-
-    public void gameLoop () {
+    protected void gameLoop() {
         float elapsedTime;
         float accumulator = 0f;
-        float interval = 1f / Constant.GameWindow.TARGET_UPS;
+        float interval = 1f / TARGET_UPS;
 
         boolean running = true;
         while (running && !window.windowShouldClose()) {
@@ -57,14 +58,18 @@ public class GameEngine{
 
             render();
 
-            if (!gameRunningData.isVSync()) {
+            if ( !window.isvSync() ) {
                 sync();
             }
         }
     }
 
+    protected void cleanup() {
+        gameLogic.cleanup();                
+    }
+    
     private void sync() {
-        float loopSlot = 1f / Constant.GameWindow.TARGET_FPS;
+        float loopSlot = 1f / TARGET_FPS;
         double endTime = timer.getLastLoopTime() + loopSlot;
         while (timer.getTime() < endTime) {
             try {
@@ -75,8 +80,7 @@ public class GameEngine{
     }
 
     protected void input() {
-
-        gameLogic.input();
+        gameLogic.input(window);
     }
 
     protected void update(float interval) {
@@ -84,8 +88,7 @@ public class GameEngine{
     }
 
     protected void render() {
-        gameLogic.render();
+        gameLogic.render(window);
         window.update();
     }
-
 }

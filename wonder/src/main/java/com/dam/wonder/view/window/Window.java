@@ -1,66 +1,64 @@
 package com.dam.wonder.view.window;
 
-import com.dam.wonder.model.config.running.GameRunningData;
-import com.dam.wonder.view.render.Renderer;
-import com.dam.wonder.view.shader.ShaderProgram;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glCreateProgram;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
-import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.system.MemoryUtil.NULL;
 
-@Service
-@Slf4j
-@Data
-public class Window implements GameWindow {
+public class Window {
 
-    /**
-     * 游戏运行时数据类
-     */
-    private final GameRunningData gameRunningData;
+    private final String title;
 
-    private final Renderer renderer;
+    private int width;
 
-    private final ShaderProgram shaderProgram;
-    /**
-     * 窗口编号
-     */
+    private int height;
+    
     private long windowHandle;
+    
+    private boolean resized;
 
-    public Window(GameRunningData gameRunningData, Renderer renderer, ShaderProgram shaderProgram) {
-        this.gameRunningData = gameRunningData;
-        this.renderer = renderer;
-        this.shaderProgram = shaderProgram;
+    private boolean vSync;
+
+    public Window(String title, int width, int height, boolean vSync) {
+        this.title = title;
+        this.width = width;
+        this.height = height;
+        this.vSync = vSync;
+        this.resized = false;
     }
 
-    @Override
     public void init() {
-       log.info("游戏初始化 开始");
+        // Setup an error callback. The default implementation
+        // will print the error message in System.err.
+        GLFWErrorCallback.createPrint(System.err).set();
+
+        // Initialize GLFW. Most GLFW functions will not work before doing this.
         if (!glfwInit()) {
-            throw new IllegalStateException("游戏初始化 失败");
+            throw new IllegalStateException("Unable to initialize GLFW");
         }
-        // Configure our window
+
         glfwDefaultWindowHints(); // optional, the current window hints are already the default
         glfwWindowHint(GLFW_VISIBLE, GL_FALSE); // the window will stay hidden after creation
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE); // the window will be resizable
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
         // Create the window
-        windowHandle = glfwCreateWindow(gameRunningData.getWindowWidth(), gameRunningData.getWindowHeight(), gameRunningData.getGameWindowName(), NULL, NULL);
+        windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
         if (windowHandle == NULL) {
-            throw new RuntimeException("游戏初始化 失败 窗口创建失败 ");
+            throw new RuntimeException("Failed to create the GLFW window");
         }
+
         // Setup resize callback
         glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
-            gameRunningData.setWindowWidth(width);
-           gameRunningData.setWindowHeight(height);
-            gameRunningData.setResized(true);
+            this.width = width;
+            this.height = height;
+            this.setResized(true);
         });
 
         // Setup a key callback. It will be called every time a key is pressed, repeated or released.
@@ -75,158 +73,69 @@ public class Window implements GameWindow {
         // Center our window
         glfwSetWindowPos(
                 windowHandle,
-                (vidmode.width() - gameRunningData.getWindowWidth()) / 2,
-                (vidmode.height() - gameRunningData.getWindowHeight()) / 2
+                (vidmode.width() - width) / 2,
+                (vidmode.height() - height) / 2
         );
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(windowHandle);
-        // Enable v-sync  垂直同步启动
-        if (gameRunningData.isVSync()) {
+
+        if (isvSync()) {
+            // Enable v-sync
             glfwSwapInterval(1);
         }
 
         // Make the window visible
         glfwShowWindow(windowHandle);
-        log.info("游戏初始化 结束");
-    }
-
-    /**
-     * 更新
-     */
-    @Override
-    public void update() {
-        glfwSwapBuffers(windowHandle);
-        glfwPollEvents();
-        gameRunningData.setColor(gameRunningData.getColor() + gameRunningData.getDirection()* 0.01f);
-        if (gameRunningData.getColor() >1) {
-            gameRunningData.setColor(1.0f);
-        }else if (gameRunningData.getColor() <0) {
-            gameRunningData.setColor(0.0f);
-        }
-    }
-
-    /**
-     * 渲染
-     */
-    @Override
-    public void render() {
-         resizedWindow();
-         setClearColor(gameRunningData.getColor(),gameRunningData.getColor(),gameRunningData.getColor(),0.0f);
-         renderer.clear();
-         shaderProgram.bind();
-        // Bind to the VAO
-        glBindVertexArray(renderer.getVaoId());
-
-        // Draw the vertices
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
-        // Restore state
-        glBindVertexArray(0);
-
-        shaderProgram.unbind();
-    }
-
-    /**
-     * 启动
-     */
-    @Async("taskPool")
-    @Override
-    public void start() {
-       log.info("游戏线程启动 开始");
-        try {
-            init();
-            loop();
-            glfwFreeCallbacks(windowHandle);
-            glfwDestroyWindow(windowHandle);
-        } finally {
-           glfwTerminate();
-           glfwSetErrorCallback(null).free();
-           cleanUp();
-        }
-
-    }
-
-    /**
-     * 循环
-     */
-    @Override
-    public void loop() {
-        // This line is critical for LWJGL's interoperation with GLFW's
-        // OpenGL context, or any context that is managed externally.
-        // LWJGL detects the context that is current in the current thread,
-        // creates the ContextCapabilities instance and makes the OpenGL
-        // bindings available for use.
+        
         GL.createCapabilities();
 
         // Set the clear color
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-
-        // Run the rendering loop until the user has attempted to close
-        // the window or has pressed the ESCAPE key.
-        while (!glfwWindowShouldClose(windowHandle)) {
-
-            glfwPollEvents();
-            input();
-            render();
-            update();
-        }
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     }
-
-    /**
-     * 按键
-     *
-     * @param keyCode
-     */
-    @Override
+    
+    public void setClearColor(float r, float g, float b, float alpha) {
+        glClearColor(r, g, b, alpha);
+    }
+    
     public boolean isKeyPressed(int keyCode) {
         return glfwGetKey(windowHandle, keyCode) == GLFW_PRESS;
     }
-
-    /**
-     * 关闭事件
-     */
-    @Override
+    
     public boolean windowShouldClose() {
         return glfwWindowShouldClose(windowHandle);
     }
-
-    /**
-     * 设置颜色
-     */
-    @Override
-    public void setClearColor(float r, float g, float b, float alpha) {
-        glClearColor(r,g,b,alpha);
+    
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     *
-     */
-    @Override
-    public void resizedWindow() {
-        if (gameRunningData.isResized()) {
-            glViewport(0, 0, gameRunningData.getWindowWidth(), gameRunningData.getWindowHeight());
-            gameRunningData.setResized(false);
-        }
+    public int getWidth() {
+        return width;
     }
 
-    @Override
-    public void input() {
-         if (isKeyPressed(GLFW_KEY_UP)) {
-             gameRunningData.setDirection(1);
-         }else if (isKeyPressed(GLFW_KEY_DOWN)) {
-             gameRunningData.setDirection(-1);
-         }else {
-             gameRunningData.setDirection(0);
-         }
+    public int getHeight() {
+        return height;
+    }
+    
+    public boolean isResized() {
+        return resized;
     }
 
-    /**
-     * 解除绑定事件
-     */
-    @Override
-    public void cleanUp() {
-        shaderProgram.cleanup();
+    public void setResized(boolean resized) {
+        this.resized = resized;
     }
 
+    public boolean isvSync() {
+        return vSync;
+    }
+
+    public void setvSync(boolean vSync) {
+        this.vSync = vSync;
+    }
+
+    public void update() {
+        glfwSwapBuffers(windowHandle);
+        glfwPollEvents();
+    }
 }
