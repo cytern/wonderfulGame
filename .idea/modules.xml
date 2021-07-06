@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/lwjglbook-master/chapter01/game-c01.iml" filepath="$PROJECT_DIR$/lwjglbook-master/chapter01/game-c01.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lwjglbook-master/chapter02/game-c02.iml" filepath="$PROJECT_DIR$/lwjglbook-master/chapter02/game-c02.iml" />
       <module fileurl="file://$PROJECT_DIR$/wonder/wonder.iml" filepath="$PROJECT_DIR$/wonder/wonder.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/wonderfulStory.iml" filepath="$PROJECT_DIR$/.idea/wonderfulStory.iml" />
     </modules>

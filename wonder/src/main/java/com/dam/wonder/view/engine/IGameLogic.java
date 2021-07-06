@@ -8,9 +8,9 @@ import com.dam.wonder.view.window.Window;
 public interface IGameLogic {
     void init() throws Exception;
 
-    void input(Window window);
+    void input();
 
     void update(float interval);
 
-    void render(Window window);
+    void render();
 }

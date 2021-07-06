@@ -30,6 +30,18 @@ public class GameRunningData {
      */
     private boolean vSync;
     /**
+     * 是否变动过大小
+     */
+    private boolean resized;
+    /**
+     * 值
+     */
+    private int direction;
+    /**
+     * 颜色
+     */
+    private float color;
+    /**
      * 构造时初始化
      */
     public GameRunningData() {
@@ -39,6 +51,7 @@ public class GameRunningData {
         this.windowWidth = Constant.GameWindow.WIDTH;
         this.gameWindowName = Constant.GameWindow.GAME_NAME;
         this.vSync = true;
+        this.resized = false;
         log.info("初始化游戏参数 结束");
     }
 }

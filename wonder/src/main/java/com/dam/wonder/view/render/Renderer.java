@@ -1,7 +1,10 @@
 package com.dam.wonder.view.render;
 
+import org.springframework.stereotype.Service;
+
 import static org.lwjgl.opengl.GL11.*;
 
+@Service
 public class Renderer {
     public Renderer() {
     }
