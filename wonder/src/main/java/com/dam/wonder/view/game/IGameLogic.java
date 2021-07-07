@@ -1,11 +1,10 @@
 package com.dam.wonder.view.game;
 
-
 import com.dam.wonder.view.window.Window;
 
 public interface IGameLogic {
 
-    void init() throws Exception;
+    void init(Window window) throws Exception;
     
     void input(Window window);
 

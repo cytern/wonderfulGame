@@ -1,7 +1,10 @@
 package com.dam.wonder.model.pojo.item;
 
 import com.dam.wonder.model.config.constant.Constant;
+import com.dam.wonder.model.pojo.choose.TalkChoose;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Talk extends Item{
@@ -30,6 +33,10 @@ public class Talk extends Item{
      * 星期几
      */
     private Integer week;
+    /**
+     * 后续选择
+     */
+    private List<TalkChoose> talkChooses;
     /**
      * 重写类型
      */

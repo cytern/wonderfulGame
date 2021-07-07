@@ -1,0 +1,69 @@
+[
+  {
+  "emotionType": 0,
+  "word": "你好，朋友",
+  "humanCode": "user",
+  "targetHumanCode": "user",
+  "date": 0,
+  "week": 0,
+    "talkChooses": [
+      {  "afterCode": "talk02",
+        "chooseText": "",
+        "chooseId": 0}
+    ],
+  "type": 0,
+  "id": 0,
+  "name": "",
+  "code": "talk01",
+  "describe": "",
+  "price": 0,
+  "num": 0,
+  "pX": 0,
+  "pY": 0
+},
+  {
+    "emotionType": 0,
+    "word": "欢迎你的到来",
+    "humanCode": "user",
+    "targetHumanCode": "user",
+    "date": 0,
+    "week": 0,
+    "talkChooses": [
+      {  "afterCode": "talk03",
+        "chooseText": "",
+        "chooseId": 1}
+    ],
+    "type": 0,
+    "id": 0,
+    "name": "",
+    "code": "talk02",
+    "describe": "",
+    "price": 0,
+    "num": 0,
+    "pX": 0,
+    "pY": 0
+  },
+  {
+    "emotionType": 0,
+    "word": "祝你玩得开心",
+    "humanCode": "user",
+    "targetHumanCode": "user",
+    "date": 0,
+    "week": 0,
+    "talkChooses": [
+      {  "afterCode": "",
+        "chooseText": "",
+        "chooseId": 0}
+    ],
+    "type": 0,
+    "id": 0,
+    "name": "",
+    "code": "talk03",
+    "describe": "",
+    "price": 0,
+    "num": 0,
+    "pX": 0,
+    "pY": 0
+  }
+
+]

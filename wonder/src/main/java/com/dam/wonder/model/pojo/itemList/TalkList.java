@@ -1,9 +1,9 @@
 package com.dam.wonder.model.pojo.itemList;
 
 import com.dam.wonder.model.pojo.item.Item;
+import com.dam.wonder.model.pojo.item.Talk;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
  */
 @Data
 @Slf4j
-public class ItemList {
+public class TalkList {
     /**
      * 首先是itemList
      */
-    private List<Item> itemList;
+    private List<Talk> itemList;
     /**
      * 类型
      */
