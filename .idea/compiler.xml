@@ -7,9 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="game-c02" />
         <module name="wonder" />
-        <module name="game-c01" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

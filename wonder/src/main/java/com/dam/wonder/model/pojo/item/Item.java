@@ -2,7 +2,7 @@ package com.dam.wonder.model.pojo.item;
 
 import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
-import org.lwjgl.system.CallbackI;
+
 
 @Data
 public class Item {
