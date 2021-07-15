@@ -7,9 +7,8 @@ import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.model.config.constant.Constant;
+import com.dam.wonder.view.game.entity.DemoFactory;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,12 @@ public class BasicGameSample extends GameApplication {
         gameSettings.setWidth(Constant.GameWindow.WIDTH);
         gameSettings.setHeight(Constant.GameWindow.HEIGHT);
         gameSettings.setTitle(Constant.GameWindow.GAME_NAME);
+        gameSettings.setVersion("demo01");
+        gameSettings.setMainMenuEnabled(false);
+    }
+
+    @Override
+    protected void onPreInit() {
     }
 
     @Override
@@ -40,16 +45,15 @@ public class BasicGameSample extends GameApplication {
             @Override
             protected void onActionEnd() {
                 log.info("摁完");
+                FXGL.spawn("explosion");
+
             }
         }, KeyCode.C);
     }
 
     @Override
     protected void initGame() {
-        FXGL.entityBuilder().at(150,150)
-                .view(new Rectangle(40,40, Color.BLUE))
-                .with(new RotatingComponent())
-                .buildAndAttach();
+        FXGL.getGameWorld().addEntityFactory(new DemoFactory());
     }
 
     public void run (String[] args) {
