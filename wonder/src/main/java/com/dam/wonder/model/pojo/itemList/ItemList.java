@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @Slf4j
-public class TalkList {
+public class ItemList {
     /**
      * 首先是itemList
      */

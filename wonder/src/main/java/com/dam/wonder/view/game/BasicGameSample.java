@@ -46,7 +46,6 @@ public class BasicGameSample extends GameApplication {
             protected void onActionEnd() {
                 log.info("摁完");
                 FXGL.spawn("explosion");
-
             }
         }, KeyCode.C);
     }

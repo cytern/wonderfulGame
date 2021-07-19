@@ -12,7 +12,9 @@ import com.dam.wonder.model.pojo.type.ItemType;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DemoFactory implements EntityFactory {
     @Spawns("explosion")
     public Entity newHappy(SpawnData data) {
@@ -31,9 +33,10 @@ public class DemoFactory implements EntityFactory {
         return view;
     }
 
-    public Entity newPlane(SpawnData spawnData) {
+    public void newPlane(SpawnData spawnData) {
         FXGL.entityBuilder(spawnData).view(FXGL.texture("player.png"))
-                .type(ItemType.USER_PLANE)
+                .type(ItemType.USER_PLANE).build();
+
 
     }
 }

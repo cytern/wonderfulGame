@@ -11,7 +11,7 @@
         "chooseText": "",
         "chooseId": 0}
     ],
-  "type": 0,
+  "type": 7,
   "id": 0,
   "name": "",
   "code": "talk01",
@@ -33,7 +33,7 @@
         "chooseText": "",
         "chooseId": 1}
     ],
-    "type": 0,
+    "type": 7,
     "id": 0,
     "name": "",
     "code": "talk02",
@@ -55,7 +55,7 @@
         "chooseText": "",
         "chooseId": 0}
     ],
-    "type": 0,
+    "type": 7,
     "id": 0,
     "name": "",
     "code": "talk03",

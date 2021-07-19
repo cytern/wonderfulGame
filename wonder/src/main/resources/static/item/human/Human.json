@@ -1,0 +1,61 @@
+[
+  {
+    "skills": [
+      {
+        "level": 0,
+        "proficiency": 0,
+        "type": 0,
+        "id": 0,
+        "name": "",
+        "code": "",
+        "describe": "",
+        "price": 0,
+        "num": 0,
+        "pX": 0,
+        "pY": 0
+      }
+    ],
+    "relationShips": [
+      {
+        "ownerId": 0,
+        "ownerCode": 0,
+        "otherId": 0,
+        "otherCode": 0,
+        "level": 0,
+        "proficiency": 0,
+        "type": 0,
+        "id": 0,
+        "name": "",
+        "code": "",
+        "describe": "",
+        "price": 0,
+        "num": 0,
+        "pX": 0,
+        "pY": 0
+      }
+    ],
+    "equipments": [
+      {
+        "attack": 0,
+        "defense": 0,
+        "health": 0,
+        "part": "",
+        "type": 0
+      }
+    ],
+    "attack": 0,
+    "defence": 0,
+    "health": 0,
+    "strength": 0,
+    "speed": 3,
+    "type": 2,
+    "id": 0,
+    "name": "",
+    "code": "",
+    "describe": "",
+    "price": 0,
+    "num": 0,
+    "pX": 0,
+    "pY": 0
+  }
+]

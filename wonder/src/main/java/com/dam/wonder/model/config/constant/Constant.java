@@ -58,7 +58,9 @@ public interface Constant {
          * 地图
          */
         Integer ITEM_MAP = 6;
-
+        /**
+         * 对话
+         */
         Integer ITEM_TALK = 7;
     }
 
@@ -176,6 +178,11 @@ public interface Constant {
         Integer WEEK_WORKDAY = 8;
 
 
+    }
+
+    interface assetsStatusDir {
+        String DIR_TALK = "static/item/talk/BirthdayStory.json";
+        String DIR_HUMAN = "static/item/human/Human.json";
     }
 
 }
