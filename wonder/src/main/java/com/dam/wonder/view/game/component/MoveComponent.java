@@ -29,4 +29,8 @@ public class MoveComponent extends Component {
     public void onUpdate(double tpf) {
         super.onUpdate(tpf);
     }
+
+    public void up(){
+
+    }
 }

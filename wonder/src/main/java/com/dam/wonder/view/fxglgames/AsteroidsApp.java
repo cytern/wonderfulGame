@@ -44,7 +44,7 @@ public class AsteroidsApp extends GameApplication {
         onKey(KeyCode.D, () -> player.getComponent(PlayerComponent.class).rotateRight());
         onKey(KeyCode.W, () -> player.getComponent(PlayerComponent.class).move());
 
-        onKeyDown(KeyCode.F, "Shoot", () -> player.getComponent(PlayerComponent.class).shoot());
+        onKey(KeyCode.F, "Shoot", () -> player.getComponent(PlayerComponent.class).shoot());
     }
 
     @Override
@@ -123,7 +123,7 @@ public class AsteroidsApp extends GameApplication {
                     .scale(text)
                     .from(new Point2D(1, 1))
                     .to(new Point2D(1.2, 1.2))
-                    .buildAndPlay();
+                    .build();
         });
 
         addUINode(text, 20, 50);

@@ -1,5 +1,6 @@
 package com.dam.wonder.model.pojo.item;
 
+import com.almasb.fxgl.entity.Entity;
 import com.dam.wonder.model.config.constant.Constant;
 import lombok.Data;
 
@@ -43,5 +44,9 @@ public class Item {
      * y坐标
      */
     private Integer pY;
+    /**
+     * 实体
+     */
+    private Entity entity;
 
 }

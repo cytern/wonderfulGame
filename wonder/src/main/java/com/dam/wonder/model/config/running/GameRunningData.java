@@ -8,6 +8,7 @@ import com.dam.wonder.model.pojo.item.Talk;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Configuration
 @Slf4j
 @Data
+@Scope("property")
 public class GameRunningData {
     /**
      * 游戏是否启动
@@ -116,7 +118,7 @@ public class GameRunningData {
         List<Item> itemList = this.itemList;
         ArrayList<Human> objects = new ArrayList<>();
         itemList.forEach(t -> {
-            if (t.getType() == Constant.ItemCode.ITEM_HUMAN) {
+            if (t.getType().equals(Constant.ItemCode.ITEM_HUMAN)) {
                 Human tempHum =  (Human) t;
                 objects.add(tempHum);
             }
@@ -124,4 +126,17 @@ public class GameRunningData {
         return objects;
     }
 
+    /**
+     * 获取主角色
+     */
+    public Human getMainHumans() {
+        List<Item> items = this.itemList;
+         Human human = new Human();
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(Constant.idCode.CODE_MAIN_HUMAN)){
+                human = (Human) items.get(i);
+            }
+        }
+        return human;
+    }
 }

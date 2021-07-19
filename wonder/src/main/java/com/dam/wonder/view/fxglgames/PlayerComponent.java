@@ -19,10 +19,16 @@ public class PlayerComponent extends Component {
 
     public void rotateLeft() {
         entity.rotateBy(-5);
+        Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
+                .mulLocal(4);
+        entity.translate(dir);
     }
 
     public void rotateRight() {
         entity.rotateBy(5);
+        Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
+                .mulLocal(4);
+        entity.translate(dir);
     }
 
     public void move() {

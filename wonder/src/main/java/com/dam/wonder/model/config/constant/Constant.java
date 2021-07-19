@@ -180,9 +180,15 @@ public interface Constant {
 
     }
 
+    /**
+     * 资产路径
+     */
     interface assetsStatusDir {
         String DIR_TALK = "static/item/talk/BirthdayStory.json";
         String DIR_HUMAN = "static/item/human/Human.json";
+    }
+    interface idCode {
+        Integer CODE_MAIN_HUMAN = 0;
     }
 
 }
