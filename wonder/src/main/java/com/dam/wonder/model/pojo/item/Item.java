@@ -48,5 +48,9 @@ public class Item {
      * 实体
      */
     private Entity entity;
+    /**
+     * 纹理位置
+     */
+    private String textureDir;
 
 }
