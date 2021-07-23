@@ -55,8 +55,8 @@
     "describe": "",
     "price": 0,
     "num": 0,
-    "pX": 0,
-    "pY": 0,
+    "pX": 200,
+    "pY": 200,
     "textureDir": "player.png"
   }
 ]

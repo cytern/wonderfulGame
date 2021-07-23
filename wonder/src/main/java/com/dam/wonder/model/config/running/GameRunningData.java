@@ -16,11 +16,11 @@ public class GameRunningData implements RunningData{
     /**
      * 窗口高度
      */
-    private Integer windowHeight;
+    private Double windowHeight;
     /**
      * 窗口宽度
      */
-    private Integer windowWidth;
+    private Double windowWidth;
     /**
      * 游戏名
      */

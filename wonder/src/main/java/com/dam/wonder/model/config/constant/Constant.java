@@ -9,8 +9,8 @@ public interface Constant {
      * 游戏窗口大小
      */
     interface GameWindow {
-        Integer HEIGHT = 720;
-        Integer WIDTH = 1080;
+        Double HEIGHT = 720d;
+        Double WIDTH = 1080d;
         String GAME_NAME = "奇妙物语";
         Integer TARGET_FPS = 80;
         Integer TARGET_UPS = 30;
@@ -189,6 +189,13 @@ public interface Constant {
     }
     interface idCode {
         Integer CODE_MAIN_HUMAN = 0;
+    }
+
+    interface degree {
+        Double DEGREE_UP = 0.0;
+        Double DEGREE_DOWN = 180.0;
+        Double DEGREE_RIGHT = 90.0;
+        Double DEGREE_LEFT = 270.0;
     }
 
 }

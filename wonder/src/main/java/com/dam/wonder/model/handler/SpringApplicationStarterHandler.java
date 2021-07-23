@@ -10,16 +10,17 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 public class SpringApplicationStarterHandler implements ApplicationListener<ApplicationReadyEvent> {
 
-private final BasicGameSample basicGameSample;
 
-    public SpringApplicationStarterHandler(BasicGameSample basicGameSample) {
-        this.basicGameSample = basicGameSample;
+
+    public SpringApplicationStarterHandler() {
+
     }
 
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         log.info("应用程序启动唤醒程序 开始唤起游戏");
+        BasicGameSample basicGameSample = new BasicGameSample();
         basicGameSample.run(new String[0]);
     }
 }

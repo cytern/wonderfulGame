@@ -24,7 +24,10 @@ public class ItemFactory implements EntityFactory {
         switch (type){
             case "human": {
                 Human human =(Human) item;
-                return FXGL.entityBuilder(new SpawnData(item.getPX(),item.getPY())).view(item.getTextureDir()).with(moveComponent).build();
+                Entity build = FXGL.entityBuilder(new SpawnData(human.getPX(), human.getPY())).view(human.getTextureDir()).with(moveComponent).build();
+                build.setProperty("face",1);
+                build.setProperty("speed",human.getSpeed());
+                return build;
             }
             default:{
                 return null;
