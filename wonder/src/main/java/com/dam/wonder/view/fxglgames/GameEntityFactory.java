@@ -134,7 +134,7 @@ public class GameEntityFactory implements EntityFactory {
                 .translate(e)
                 .from(new Point2D(data.getX(), data.getY()))
                 .to(new Point2D(data.getX(), data.getY() - 30))
-                .buildAndPlay();
+                .build();
 
         return e;
     }

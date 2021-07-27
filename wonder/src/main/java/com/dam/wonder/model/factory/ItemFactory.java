@@ -14,19 +14,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ItemFactory implements EntityFactory {
-    private final MoveComponent moveComponent;
 
-    public ItemFactory(MoveComponent moveComponent) {
-        this.moveComponent = moveComponent;
+
+    public ItemFactory() {
+
     }
 
     public  Entity constructorEntityAuto(Item item,String type) {
         switch (type){
             case "human": {
                 Human human =(Human) item;
-                Entity build = FXGL.entityBuilder(new SpawnData(human.getPX(), human.getPY())).view(human.getTextureDir()).with(moveComponent).build();
-                build.setProperty("face",1);
-                build.setProperty("speed",human.getSpeed());
+                MoveComponent moveComponent = new MoveComponent();
+                moveComponent.setMaxSpeed(human.getSpeed());
+                Entity build = FXGL.entityBuilder(new SpawnData(human.getPX(), human.getPY())).viewWithBBox(human.getTextureDir()).with(moveComponent).collidable().build();
                 return build;
             }
             default:{

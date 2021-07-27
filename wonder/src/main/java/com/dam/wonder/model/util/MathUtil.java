@@ -2,7 +2,9 @@ package com.dam.wonder.model.util;
 
 import com.dam.wonder.model.config.running.GameRunningData;
 import javafx.geometry.Point2D;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MathUtil {
     private static final GameRunningData gameRunningData;
     static {
@@ -23,11 +25,36 @@ public class MathUtil {
     /**
      * 加速度计算 基本的变加速运动
      */
-    public static Double runSpeedAdd(Double speed) {
-        return null;
+    public static Double runSpeedAdd(boolean trade,Double aTime,Double maxSpeed,Double nowSpeed) {
+        if (trade) {
+            if (nowSpeed > maxSpeed ) {
+                return nowSpeed;
+            }else {
+                return nowSpeed + maxSpeed/(float)10*aTime;
+            }
+        }else {
+            maxSpeed = - maxSpeed;
+            if (nowSpeed < maxSpeed) {
+                return  nowSpeed;
+            }else {
+                return nowSpeed + maxSpeed/(float)10*aTime;
+            }
+        }
     }
-    public static Double runSpeedDown(Double speed) {
-        return null;
+
+    /**
+     * 速度归零算法
+     */
+    public static Double runSpeedDown(Double nowSpeed,Double aTime) {
+        if (nowSpeed.equals( 0d) ) {
+            return 0d;
+        }else if (nowSpeed >0.1){
+            return nowSpeed - 0.01 - (float) (nowSpeed*1)/(float) (aTime*10);
+        }else if (nowSpeed <-0.1){
+            return nowSpeed + 0.01 - (float) (nowSpeed*1)/(float) (aTime*10);
+        }else  {
+            return 0d;
+        }
     }
 
 

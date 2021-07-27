@@ -40,19 +40,19 @@ public class BasicGameSample extends GameApplication {
     public void initInput() {
         FXGL.onKey(KeyCode.W,"move up", () -> {
             Human mainHumans = entityData.getMainHumans();
-            mainHumans.getEntity().getComponent(MoveComponent.class).up(mainHumans.getSpeed());
+            mainHumans.getEntity().getComponent(MoveComponent.class).up();
         });
         FXGL.onKey(KeyCode.S,"move down", () -> {
             Human mainHumans = entityData.getMainHumans();
-            mainHumans.getEntity().getComponent(MoveComponent.class).down(mainHumans.getSpeed());
+            mainHumans.getEntity().getComponent(MoveComponent.class).down();
         });
         FXGL.onKey(KeyCode.A,"move left", () -> {
             Human mainHumans = entityData.getMainHumans();
-            mainHumans.getEntity().getComponent(MoveComponent.class).left(mainHumans.getSpeed());
+            mainHumans.getEntity().getComponent(MoveComponent.class).left();
         });
         FXGL.onKey(KeyCode.D,"move right", () -> {
             Human mainHumans = entityData.getMainHumans();
-            mainHumans.getEntity().getComponent(MoveComponent.class).right(mainHumans.getSpeed());
+            mainHumans.getEntity().getComponent(MoveComponent.class).right();
         });
     }
 

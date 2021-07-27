@@ -2,20 +2,46 @@ package com.dam.wonder.view.game.component;
 
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.component.Component;
-import com.dam.wonder.model.config.constant.Constant;
-import com.dam.wonder.model.config.running.GameRunningData;
 import com.dam.wonder.model.util.MathUtil;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-@org.springframework.stereotype.Component
+
 @Slf4j
+@Data
 public class MoveComponent extends Component {
+    /**
+     * 最高速度
+     */
+    private double maxSpeed = 1d;
+    /**
+     * 最低速度
+     */
+    private double lowerSpeed = 1;
+    /**
+     * 加速时间
+     */
+    private double accelerationTime = 2;
+    /**
+     * 面向
+     */
+    private int face = 1;
+    /**
+     * 现在的速度
+     */
+    private double nowSpeed = 4;
+    /**
+     * x 速度
+     */
+    private double speedX = 0d;
+    /**
+     * y 速度
+     */
+    private double speedY = 0d;
 
-    private final GameRunningData gameRunningData;
-    private double degree = 0.0;
 
-    public MoveComponent(GameRunningData gameRunningData) {
-        this.gameRunningData = gameRunningData;
+    public MoveComponent() {
+
     }
 
     /**
@@ -33,63 +59,56 @@ public class MoveComponent extends Component {
      */
     @Override
     public void onUpdate(double tpf) {
+        if (speedX != 0d) {
+            if (true) {
+                Vec2 dir = Vec2.fromAngle(entity.getRotation() - 360)
+                        .mulLocal(speedX);
+                entity.translate(dir);
+            }
+        }
+        if (speedY != 0d) {
+            if (true) {
+                Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
+                        .mulLocal(speedY);
+                entity.translate(dir);
+            }
+        }
+        speedX = MathUtil.runSpeedDown(speedX,1d);
+        speedY = MathUtil.runSpeedDown(speedY,1d);
     }
 
     /**
      * 上
      */
-    public void up(int speed){
-        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
-        if (MathUtil.isInGame(entity.getPosition())) {
-            //二分专向
-            if (entity.getRotation() != Constant.degree.DEGREE_UP) {
-
-            }else {
-                Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
-                        .mulLocal(speed);
-                entity.translate(dir);
-            }
-
-        }
+    public void up(){
+//        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
+                speedY = MathUtil.runSpeedAdd(true,accelerationTime,maxSpeed,speedY);
 
     }
 
     /**
      * 下
      */
-    public void down(int speed) {
+    public void down() {
         log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
-        entity.rotateBy(5);
-        if (MathUtil.isInGame(entity.getPosition())) {
-            Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
-                    .mulLocal(speed);
-            entity.translate(dir);
-        }
+            speedY = MathUtil.runSpeedAdd(false,accelerationTime,maxSpeed,speedY);
     }
 
     /**
      * 左
      */
-    public void left(int speed) {
+    public void left() {
         log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
-        if (MathUtil.isInGame(entity.getPosition())) {
-            Vec2 dir = Vec2.fromAngle(entity.getRotation() - 270)
-                    .mulLocal(speed);
-            entity.translate(dir);
-        }
+        speedX = MathUtil.runSpeedAdd(false,accelerationTime,maxSpeed,speedX);
     }
 
 
     /**
      * 右
      */
-    public void right(int speed) {
+    public void right() {
         log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
-        if (MathUtil.isInGame(entity.getPosition())) {
-            Vec2 dir = Vec2.fromAngle(entity.getRotation() - 270)
-                    .mulLocal(speed);
-            entity.translate(dir);
-        }
+        speedX = MathUtil.runSpeedAdd(true,accelerationTime,maxSpeed,speedX);
     }
 
 

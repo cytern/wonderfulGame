@@ -38,7 +38,7 @@ public class Human extends Item {
     /**
      * 移速
      */
-    private Integer speed;
+    private Double speed;
 
     private Integer type = Constant.ItemCode.ITEM_HUMAN;
 }
