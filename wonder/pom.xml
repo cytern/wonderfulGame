@@ -14,7 +14,7 @@
     <name>wonder</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>11</java.version>
+        <java.version>16</java.version>
         <repackage.classifier/>
         <steamworks4j.version>1.8.0</steamworks4j.version>
         <steamworks4j-server.version>1.8.0</steamworks4j-server.version>
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.github.almasb</groupId>
             <artifactId>fxgl</artifactId>
-            <version>11.16</version>
+            <version>11.17</version>
         </dependency>
 
     <dependency>

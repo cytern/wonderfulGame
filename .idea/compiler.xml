@@ -13,7 +13,7 @@
     <bytecodeTargetLevel>
       <module name="game-c01" target="11" />
       <module name="game-c02" target="11" />
-      <module name="wonder" target="11" />
+      <module name="wonder" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

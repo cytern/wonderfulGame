@@ -81,7 +81,7 @@ public class MoveComponent extends Component {
      * 上
      */
     public void up(){
-//        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
+        log.debug("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
                 speedY = MathUtil.runSpeedAdd(true,accelerationTime,maxSpeed,speedY);
 
     }
@@ -90,7 +90,7 @@ public class MoveComponent extends Component {
      * 下
      */
     public void down() {
-        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
+        log.debug("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
             speedY = MathUtil.runSpeedAdd(false,accelerationTime,maxSpeed,speedY);
     }
 
@@ -98,7 +98,7 @@ public class MoveComponent extends Component {
      * 左
      */
     public void left() {
-        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
+        log.debug("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
         speedX = MathUtil.runSpeedAdd(false,accelerationTime,maxSpeed,speedX);
     }
 
@@ -107,7 +107,7 @@ public class MoveComponent extends Component {
      * 右
      */
     public void right() {
-        log.info("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
+        log.debug("正在执行移动 实例数据为 [{}] , 角度为 [{}]",entity,entity.getRotation());
         speedX = MathUtil.runSpeedAdd(true,accelerationTime,maxSpeed,speedX);
     }
 

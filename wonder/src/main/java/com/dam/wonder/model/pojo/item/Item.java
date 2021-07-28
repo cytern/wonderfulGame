@@ -52,5 +52,9 @@ public class Item {
      * 纹理位置
      */
     private String textureDir;
+    /**
+     * 是否被选中
+     */
+    private boolean isSelect = false;
 
 }
