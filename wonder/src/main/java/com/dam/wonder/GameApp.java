@@ -23,60 +23,39 @@ public class GameApp extends GameApplication {
         FXGL.getInput().addAction(new UserAction("up") {
             @Override
             protected void onAction() {
-                super.onAction();
-            }
-
-            @Override
-            protected void onActionBegin() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
                 entitiesByType.get(0).getComponent(MoveComponent.class).up();
-
             }
-
             @Override
             protected void onActionEnd() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
-                entitiesByType.get(0).getComponent(MoveComponent.class).stop();
+                entitiesByType.get(0).getComponent(MoveComponent.class).stopY();
             }
         }, KeyCode.W);
 
         FXGL.getInput().addAction(new UserAction("down") {
             @Override
             protected void onAction() {
-                super.onAction();
-            }
-
-            @Override
-            protected void onActionBegin() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
                 entitiesByType.get(0).getComponent(MoveComponent.class).down();
-
             }
-
             @Override
             protected void onActionEnd() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
-                entitiesByType.get(0).getComponent(MoveComponent.class).stop();
+                entitiesByType.get(0).getComponent(MoveComponent.class).stopY();
             }
         }, KeyCode.S);
 
         FXGL.getInput().addAction(new UserAction("left") {
             @Override
             protected void onAction() {
-                super.onAction();
-            }
-
-            @Override
-            protected void onActionBegin() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
                 entitiesByType.get(0).getComponent(MoveComponent.class).left();
-
             }
-
             @Override
             protected void onActionEnd() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
-                entitiesByType.get(0).getComponent(MoveComponent.class).stop();
+                entitiesByType.get(0).getComponent(MoveComponent.class).stopX();
             }
         }, KeyCode.A);
 
@@ -84,20 +63,14 @@ public class GameApp extends GameApplication {
         FXGL.getInput().addAction(new UserAction("right") {
             @Override
             protected void onAction() {
-                super.onAction();
-            }
-
-            @Override
-            protected void onActionBegin() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
                 entitiesByType.get(0).getComponent(MoveComponent.class).right();
-
             }
 
             @Override
             protected void onActionEnd() {
                 List<Entity> entitiesByType = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE);
-                entitiesByType.get(0).getComponent(MoveComponent.class).stop();
+                entitiesByType.get(0).getComponent(MoveComponent.class).stopX();
             }
         }, KeyCode.D);
     }
