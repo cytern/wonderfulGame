@@ -15,6 +15,21 @@ import java.util.List;
 public class GameApp extends GameApplication {
 
     /**
+     * Initialize UI objects.
+     */
+    @Override
+    protected void initUI() {
+//        Rectangle rectangle = new Rectangle(200, 200, Color.color(0, 0, 0, 0.85));
+//        rectangle.setStroke(Color.BLUE);
+//        rectangle.setStrokeWidth(1.75);
+//        rectangle.setEffect(new DropShadow(28,Color.color(0,0,0,0.9)));
+//        VBox.setVgrow(new HBox(), Priority.ALWAYS);
+//        rectangle.setTranslateX(0);
+//        rectangle.setTranslateY(0);
+//        FXGL.addUINode(rectangle,20,20);
+    }
+
+    /**
      * Initialize game objects.
      */
     @Override
