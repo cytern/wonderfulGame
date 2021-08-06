@@ -8,8 +8,10 @@ import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
 import com.dam.wonder.factory.CustomerEntityFactory;
+import com.dam.wonder.ui.TalkScene;
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameApp extends GameApplication {
@@ -88,6 +90,18 @@ public class GameApp extends GameApplication {
                 entitiesByType.get(0).getComponent(MoveComponent.class).stopX();
             }
         }, KeyCode.D);
+
+        FXGL.getInput().addAction(new UserAction("show talk") {
+            @Override
+            protected void onActionBegin() {
+                List<String> talkList = new ArrayList<>();
+                talkList.add("生日快乐铁汁");
+                talkList.add("我终于做完了");
+                talkList.add("嘿嘿嘿");
+                TalkScene instance = TalkScene.getInstance();
+                instance.show(talkList);
+            }
+        },KeyCode.T);
     }
 
     @Override
