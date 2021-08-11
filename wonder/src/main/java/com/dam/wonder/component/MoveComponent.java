@@ -2,15 +2,27 @@ package com.dam.wonder.component;
 
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.component.Component;
+import com.almasb.fxgl.texture.AnimatedTexture;
+import com.almasb.fxgl.texture.AnimationChannel;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MoveComponent extends Component {
     private double speedX = 0d;
     private double speedY = 0d;
+
+    /**
+     * Called after the component is added to entity.
+     */
+    @Override
+    public void onAdded() {
+        entity.getViewComponent().addChild(texture);
+    }
+
     private double maxSpeed = 4d;
     private double aTime = 1d;
     private boolean speedXAdd;
@@ -20,6 +32,11 @@ public class MoveComponent extends Component {
     private Rectangle faceDown  = new Rectangle(50,50);;
     private Rectangle faceLeft  = new Rectangle(50,50);;
     private Rectangle faceRight  = new Rectangle(50,50);;
+    private  AnimationChannel up;
+    private  AnimationChannel down;
+    private  AnimationChannel right;
+    private  AnimationChannel left;
+    private AnimatedTexture texture;
     @Override
     public void onUpdate(double tpf) {
 //        log.info("当前状态下  x速度为=[{}]， Y速度为=[{}]  x加速状态为=[{}] Y加速状态为 =[{}]",speedX,speedY,speedXAdd,speedYAdd);
@@ -51,15 +68,19 @@ public class MoveComponent extends Component {
                 slowDownSpeed(false);
             }
            if (tempFace != face) {
-               entity.getViewComponent().clearChildren();
+//               entity.getViewComponent().clearChildren();
                if (tempFace == 1) {
-                   entity.getViewComponent().addChild(faceLeft);
+//                   entity.getViewComponent().addChild(faceLeft);
+                   this.texture.loopAnimationChannel(left);
                }else if (tempFace == 2){
-                   entity.getViewComponent().addChild(faceRight);
+//                   entity.getViewComponent().addChild(faceRight);
+                   this.texture.loopAnimationChannel(right);
                }else if (tempFace == 3) {
-                   entity.getViewComponent().addChild(faceUp);
+//                   entity.getViewComponent().addChild(faceUp);
+                   this.texture.loopAnimationChannel(up);
                }else {
-                   entity.getViewComponent().addChild(faceDown);
+//                   entity.getViewComponent().addChild(faceDown);
+                   this.texture.loopAnimationChannel(down);
                }
                face = tempFace;
            }
@@ -70,6 +91,13 @@ public class MoveComponent extends Component {
         faceDown.setFill(new ImagePattern(new Image("assets/textures/player-down.png")));
         faceLeft.setFill(new ImagePattern(new Image("assets/textures/player-left.png")));
         faceRight.setFill(new ImagePattern(new Image("assets/textures/player-right.png")));
+        Image image = new Image("assets/textures/player.png");
+        down = new AnimationChannel(image, 4, 32, 38, Duration.seconds(1), 0, 3);
+        right = new AnimationChannel(image, 4, 32, 38, Duration.seconds(1), 4, 7);
+        left = new AnimationChannel(image, 4, 32, 38, Duration.seconds(1), 8, 11);
+        up = new AnimationChannel(image, 4, 32, 38, Duration.seconds(1), 12, 15);
+        texture = new AnimatedTexture(up);
+        texture.loop();
     }
     public void up() {
         changeSpeed(true,false);
