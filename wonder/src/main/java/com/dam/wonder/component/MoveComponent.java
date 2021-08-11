@@ -2,12 +2,11 @@ package com.dam.wonder.component;
 
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.component.Component;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import lombok.extern.slf4j.Slf4j;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Slf4j
 public class MoveComponent extends Component {
     private double speedX = 0d;
@@ -16,18 +15,34 @@ public class MoveComponent extends Component {
     private double aTime = 1d;
     private boolean speedXAdd;
     private boolean speedYAdd;
+    private int face = 1;
+    private Rectangle faceUp = new Rectangle(50,50);
+    private Rectangle faceDown  = new Rectangle(50,50);;
+    private Rectangle faceLeft  = new Rectangle(50,50);;
+    private Rectangle faceRight  = new Rectangle(50,50);;
     @Override
     public void onUpdate(double tpf) {
 //        log.info("当前状态下  x速度为=[{}]， Y速度为=[{}]  x加速状态为=[{}] Y加速状态为 =[{}]",speedX,speedY,speedXAdd,speedYAdd);
+           int tempFace = face;
             if (speedX != 0d) {
                     Vec2 dir = Vec2.fromAngle(entity.getRotation() - 360)
                             .mulLocal(speedX);
                     entity.translate(dir);
+                    if (speedX>0) {
+                        tempFace = 1;
+                    }else {
+                        tempFace = 2;
+                    }
             }
             if (speedY != 0d) {
                     Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
                             .mulLocal(speedY);
                     entity.translate(dir);
+                    if (speedY > 0) {
+                        tempFace = 3;
+                    }else {
+                        tempFace = 4;
+                    }
             }
             if (!speedXAdd) {
                 slowDownSpeed(true);
@@ -35,8 +50,27 @@ public class MoveComponent extends Component {
             if (!speedYAdd) {
                 slowDownSpeed(false);
             }
+           if (tempFace != face) {
+               entity.getViewComponent().clearChildren();
+               if (tempFace == 1) {
+                   entity.getViewComponent().addChild(faceLeft);
+               }else if (tempFace == 2){
+                   entity.getViewComponent().addChild(faceRight);
+               }else if (tempFace == 3) {
+                   entity.getViewComponent().addChild(faceUp);
+               }else {
+                   entity.getViewComponent().addChild(faceDown);
+               }
+               face = tempFace;
+           }
     }
 
+    public MoveComponent () {
+        faceUp.setFill(new ImagePattern(new Image("assets/textures/player-up.png")));
+        faceDown.setFill(new ImagePattern(new Image("assets/textures/player-down.png")));
+        faceLeft.setFill(new ImagePattern(new Image("assets/textures/player-left.png")));
+        faceRight.setFill(new ImagePattern(new Image("assets/textures/player-right.png")));
+    }
     public void up() {
         changeSpeed(true,false);
     }
@@ -89,6 +123,7 @@ public class MoveComponent extends Component {
                 }
             }
         }
+        log.info("实体当前状态为 位置=[{}],速度Y=[{}],速度X =[{}]",entity.getPosition(),this.speedY,this.speedX);
     }
 
     /**

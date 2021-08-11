@@ -4,6 +4,8 @@ public enum EntityType {
     /**
      * 飞机
      */
-    PLANE
+    PLANE,
+    ROAD,
+    BUILDING
 
 }

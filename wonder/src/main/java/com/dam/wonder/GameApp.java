@@ -2,41 +2,63 @@ package com.dam.wonder;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
 import com.dam.wonder.factory.CustomerEntityFactory;
+import com.dam.wonder.factory.GameEntityFactory;
 import com.dam.wonder.ui.TalkScene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 public class GameApp extends GameApplication {
-
     /**
-     * Initialize UI objects.
+     * Can be overridden to provide global variables.
+     *
+     * @param vars map containing CVars (global variables)
+     *
      */
     @Override
-    protected void initUI() {
-//        Rectangle rectangle = new Rectangle(200, 200, Color.color(0, 0, 0, 0.85));
-//        rectangle.setStroke(Color.BLUE);
-//        rectangle.setStrokeWidth(1.75);
-//        rectangle.setEffect(new DropShadow(28,Color.color(0,0,0,0.9)));
-//        VBox.setVgrow(new HBox(), Priority.ALWAYS);
-//        rectangle.setTranslateX(0);
-//        rectangle.setTranslateY(0);
-//        FXGL.addUINode(rectangle,20,20);
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("score",0);
     }
 
     /**
-     * Initialize game objects.
+     * Called every frame _only_ in Play state.
+     *
+     * @param tpf time per frame
      */
     @Override
-    protected void initGame() {
-        FXGL.getGameWorld().addEntity(CustomerEntityFactory.createEntity(EntityType.PLANE));
+    protected void onUpdate(double tpf) {
+        FXGL.inc("score",1);
+    }
+
+    /**
+     * Initialize input, i.e. bind key presses, bind mouse buttons.
+     * <pre>
+     * Example:
+     *
+     * Input input = getInput();
+     * input.addAction(new UserAction("Move Left") {
+     *      protected void onAction() {
+     *          playerControl.moveLeft();
+     *      }
+     * }, KeyCode.A);
+     * </pre>
+     */
+    @Override
+    protected void initInput() {
         FXGL.getInput().addAction(new UserAction("up") {
             @Override
             protected void onAction() {
@@ -101,7 +123,36 @@ public class GameApp extends GameApplication {
                 TalkScene instance = TalkScene.getInstance();
                 instance.show(talkList);
             }
-        },KeyCode.T);
+        }, KeyCode.P);
+    }
+
+    /**
+     * Initialize UI objects.
+     */
+    @Override
+    protected void initUI() {
+        Image image = new Image("assets/ui/buttons/ui1.png");
+        Rectangle rectangle = new Rectangle(50, 50);
+        rectangle.setFill(new ImagePattern(image));
+        rectangle.setOnMouseClicked(e -> FXGL.getInput().mockKeyPress(KeyCode.P));
+        FXGL.addUINode(rectangle,900,20);
+    }
+
+    /**
+     * Initialize game objects.
+     */
+    @Override
+    protected void initGame() {
+        setLevel();
+        FXGL.getGameWorld().addEntityFactory(new GameEntityFactory());
+        Entity entity = CustomerEntityFactory.createEntity(EntityType.PLANE);
+        //绑定视角 固定视角
+        FXGL.getGameWorld().addEntity(entity);
+                Viewport viewport = FXGL.getGameScene().getViewport();
+        viewport.setBounds(-10000,-10000,250 *70,10000);
+        viewport.bindToEntity(entity, FXGL.getAppWidth() / 2, FXGL.getAppHeight() / 2);
+
+
     }
 
     @Override
@@ -109,9 +160,17 @@ public class GameApp extends GameApplication {
         settings.setTitle("demo");
         settings.setHeight(720);
         settings.setWidth(1080);
+        settings.setDeveloperMenuEnabled(true);
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void setLevel() {
+        //首先移除全部的实体
+      FXGL.getGameWorld().getEntitiesCopy().forEach(t -> t.removeFromWorld());
+      //加载地图
+      FXGL.setLevelFromMap("tmx/new_home.tmx");
     }
 }
