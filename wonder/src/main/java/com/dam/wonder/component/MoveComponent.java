@@ -19,8 +19,6 @@ public class MoveComponent extends Component {
     @Override
     public void onAdded() {
         entity.getViewComponent().addChild(texture);
-        entity.setScaleY(3);
-        entity.setScaleX(3);
     }
 
     private double maxSpeed = 4d;

@@ -15,6 +15,9 @@ public class CustomerEntityFactory {
             case PLANE -> {
                Entity entity = FXGL.entityBuilder().with(new MoveComponent()).build();
                entity.setType(EntityType.PLANE);
+               entity.translateX(500);
+               entity.translateY(500);
+
                return entity;
             }
             default -> {

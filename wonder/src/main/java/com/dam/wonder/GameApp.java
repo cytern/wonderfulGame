@@ -10,6 +10,8 @@ import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
 import com.dam.wonder.factory.CustomerEntityFactory;
 import com.dam.wonder.factory.GameEntityFactory;
+import com.dam.wonder.factory.TalkFactory;
+import com.dam.wonder.pojo.Talk;
 import com.dam.wonder.ui.TalkScene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -17,7 +19,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class GameApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("score",0);
+        vars.put("talk","");
     }
 
     /**
@@ -116,10 +118,7 @@ public class GameApp extends GameApplication {
         FXGL.getInput().addAction(new UserAction("show talk") {
             @Override
             protected void onActionBegin() {
-                List<String> talkList = new ArrayList<>();
-                talkList.add("生日快乐铁汁");
-                talkList.add("我终于做完了");
-                talkList.add("嘿嘿嘿");
+                List<Talk> talkList = TalkFactory.buildTalkList();
                 TalkScene instance = TalkScene.getInstance();
                 instance.show(talkList);
             }
