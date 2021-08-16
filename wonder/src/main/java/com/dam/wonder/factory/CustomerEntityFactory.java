@@ -13,7 +13,9 @@ public class CustomerEntityFactory {
     public static Entity createEntity(EntityType type){
         switch (type) {
             case PLANE -> {
-               Entity entity = FXGL.entityBuilder().with(new MoveComponent()).build();
+               Entity entity = FXGL.entityBuilder().with(new MoveComponent())
+                       .collidable()
+                       .build();
                entity.setType(EntityType.PLANE);
                entity.translateX(500);
                entity.translateY(500);

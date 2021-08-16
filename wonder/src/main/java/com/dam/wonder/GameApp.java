@@ -142,8 +142,8 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initGame() {
-        setLevel();
         FXGL.getGameWorld().addEntityFactory(new GameEntityFactory());
+        setLevel();
         Entity entity = CustomerEntityFactory.createEntity(EntityType.PLANE);
         //绑定视角 固定视角
         FXGL.getGameWorld().addEntity(entity);
@@ -170,6 +170,6 @@ public class GameApp extends GameApplication {
         //首先移除全部的实体
       FXGL.getGameWorld().getEntitiesCopy().forEach(t -> t.removeFromWorld());
       //加载地图
-      FXGL.setLevelFromMap("tmx/new_home.tmx");
+      FXGL.setLevelFromMap("tmx/obj_test.tmx");
     }
 }
