@@ -8,9 +8,9 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
-import com.dam.wonder.factory.CustomerEntityFactory;
 import com.dam.wonder.factory.GameEntityFactory;
 import com.dam.wonder.factory.TalkFactory;
+import com.dam.wonder.handler.PlayerCollisionHandler;
 import com.dam.wonder.pojo.Talk;
 import com.dam.wonder.ui.TalkScene;
 import javafx.scene.image.Image;
@@ -144,12 +144,12 @@ public class GameApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new GameEntityFactory());
         setLevel();
-        Entity entity = CustomerEntityFactory.createEntity(EntityType.PLANE);
+        FXGL.spawn("player",100,100);
+        FXGL.spawn("npc",500,500);
         //绑定视角 固定视角
-        FXGL.getGameWorld().addEntity(entity);
                 Viewport viewport = FXGL.getGameScene().getViewport();
         viewport.setBounds(-10000,-10000,250 *70,10000);
-        viewport.bindToEntity(entity, FXGL.getAppWidth() / 2, FXGL.getAppHeight() / 2);
+        viewport.bindToEntity(FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE).get(0), FXGL.getAppWidth() / 2, FXGL.getAppHeight() / 2);
 
 
     }
@@ -160,6 +160,14 @@ public class GameApp extends GameApplication {
         settings.setHeight(720);
         settings.setWidth(1080);
         settings.setDeveloperMenuEnabled(true);
+    }
+
+    /**
+     * 初始化物理事件
+     */
+    @Override
+    protected void initPhysics() {
+        FXGL.getPhysicsWorld().addCollisionHandler(new PlayerCollisionHandler());
     }
 
     public static void main(String[] args) {

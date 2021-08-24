@@ -6,6 +6,8 @@ public enum EntityType {
      */
     PLANE,
     ROAD,
-    BUILDING
+    BUILDING,
+    NPC,
+    WHY
 
 }

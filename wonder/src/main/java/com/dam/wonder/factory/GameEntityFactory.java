@@ -8,8 +8,11 @@ import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
+import com.almasb.fxgl.texture.Texture;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
+import javafx.geometry.Point2D;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -54,13 +57,37 @@ public class GameEntityFactory implements EntityFactory {
 
     @Spawns("player")
     public Entity player(SpawnData data) {
-        Entity entity = FXGL.entityBuilder().with(new MoveComponent())
+        Entity entity = FXGL.entityBuilder(data)
+                .type(EntityType.PLANE)
+                .with(new MoveComponent())
+                .bbox(new HitBox(new Point2D(0,0)  , BoundingShape.circle(12)))
                 .collidable()
                 .build();
-        entity.setType(EntityType.PLANE);
-        entity.translateX(500);
-        entity.translateY(500);
-
+        return entity;
+    }
+    @Spawns("npc")
+    public Entity npc(SpawnData data) {
+        ImageView imageView = new ImageView("assets/textures/player-drawing.png");
+        imageView.setFitHeight(64);
+        imageView.setFitWidth(64);
+        Entity entity = FXGL.entityBuilder(data)
+                .type(EntityType.NPC)
+                .view(imageView)
+                .bbox(new HitBox(new Point2D(0, 0) , BoundingShape.circle(40)))
+                .collidable()
+                .build();
+        return entity;
+    }
+    @Spawns("why")
+    public Entity why(SpawnData data) {
+        ImageView imageView = new ImageView("assets/ui/buttons/why.png");
+        imageView.setFitHeight(12);
+        Texture texture =  new Texture(imageView.getImage());
+        Entity entity = FXGL.entityBuilder(data)
+                .type(EntityType.WHY)
+                .bbox(new HitBox(new Point2D(0, 0) , BoundingShape.circle(40)))
+                .collidable()
+                .build();
         return entity;
     }
 

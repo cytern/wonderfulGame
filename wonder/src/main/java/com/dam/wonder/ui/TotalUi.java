@@ -17,4 +17,5 @@ public class TotalUi {
         }
         return instance;
     }
+
 }
