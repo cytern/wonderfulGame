@@ -9,10 +9,7 @@ import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
 import com.dam.wonder.factory.GameEntityFactory;
-import com.dam.wonder.factory.TalkFactory;
 import com.dam.wonder.handler.PlayerCollisionHandler;
-import com.dam.wonder.pojo.Talk;
-import com.dam.wonder.ui.TalkScene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.ImagePattern;
@@ -114,15 +111,6 @@ public class GameApp extends GameApplication {
                 entitiesByType.get(0).getComponent(MoveComponent.class).stopX();
             }
         }, KeyCode.D);
-
-        FXGL.getInput().addAction(new UserAction("show talk") {
-            @Override
-            protected void onActionBegin() {
-                List<Talk> talkList = TalkFactory.buildTalkList();
-                TalkScene instance = TalkScene.getInstance();
-                instance.show(talkList);
-            }
-        }, KeyCode.P);
     }
 
     /**
