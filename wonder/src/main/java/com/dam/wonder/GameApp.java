@@ -5,6 +5,7 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.Viewport;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.TransformComponent;
 import com.almasb.fxgl.input.UserAction;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.constant.EntityType;
@@ -40,7 +41,9 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void onUpdate(double tpf) {
-        FXGL.inc("score",1);
+        Entity entity = FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE).get(0);
+        TransformComponent transform = FXGL.getGameScene().getCamera3D().getTransform();
+        entity.getTransformComponent().lookAt(transform.getPosition3D().add(transform.getDirection3D().multiply(50)));
     }
 
     /**
@@ -132,12 +135,12 @@ public class GameApp extends GameApplication {
     protected void initGame() {
         FXGL.getGameWorld().addEntityFactory(new GameEntityFactory());
         setLevel();
-        FXGL.spawn("player",100,100);
+        Entity player = FXGL.spawn("player");
         FXGL.spawn("npc",500,500);
-        //绑定视角 固定视角
-                Viewport viewport = FXGL.getGameScene().getViewport();
+        Viewport viewport = FXGL.getGameScene().getViewport();
         viewport.setBounds(-10000,-10000,250 *70,10000);
-        viewport.bindToEntity(FXGL.getGameWorld().getEntitiesByType(EntityType.PLANE).get(0), FXGL.getAppWidth() / 2, FXGL.getAppHeight() / 2);
+        viewport.bindToEntity(player, FXGL.getAppWidth() / 2, FXGL.getAppHeight() / 2);
+
 
 
     }
@@ -147,7 +150,6 @@ public class GameApp extends GameApplication {
         settings.setTitle("demo");
         settings.setHeight(720);
         settings.setWidth(1080);
-        settings.setDeveloperMenuEnabled(true);
     }
 
     /**
@@ -168,4 +170,6 @@ public class GameApp extends GameApplication {
       //加载地图
       FXGL.setLevelFromMap("tmx/obj_test.tmx");
     }
+
+
 }

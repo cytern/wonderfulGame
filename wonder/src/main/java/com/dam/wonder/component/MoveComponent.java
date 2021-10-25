@@ -35,6 +35,8 @@ public class MoveComponent extends Component {
     private final AnimationChannel left;
     private final AnimationChannel leftHold;
     private final AnimatedTexture texture;
+    private int speedXCanMove;
+    private int speedYCanMove;
     @Override
     public void onUpdate(double tpf) {
 //        log.info("当前状态下  x速度为=[{}]， Y速度为=[{}]  x加速状态为=[{}] Y加速状态为 =[{}]",speedX,speedY,speedXAdd,speedYAdd);
@@ -56,7 +58,7 @@ public class MoveComponent extends Component {
                     tempFace = 6;
                 }
             }
-            if (speedY != 0d) {
+            if (speedY != 0d && speedX == 0d) {
                     Vec2 dir = Vec2.fromAngle(entity.getRotation() - 90)
                             .mulLocal(speedY);
                     entity.translate(dir);
@@ -98,6 +100,12 @@ public class MoveComponent extends Component {
                }
                face = tempFace;
            }
+    }
+    //用来判断碰撞的时候是X轴碰撞了还是Y轴碰撞了
+    public void CanNotMoveSpeedX(boolean upOrDown) {
+        if (upOrDown) {
+
+        }
     }
 
     public MoveComponent () {

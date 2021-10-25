@@ -8,6 +8,7 @@ public enum EntityType {
     ROAD,
     BUILDING,
     NPC,
-    WHY
+    WHY,
+    WALL
 
 }

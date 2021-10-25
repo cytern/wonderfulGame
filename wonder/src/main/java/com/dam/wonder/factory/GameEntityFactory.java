@@ -7,7 +7,6 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
-import com.almasb.fxgl.physics.PhysicsComponent;
 import com.dam.wonder.component.MoveComponent;
 import com.dam.wonder.component.WhyComponent;
 import com.dam.wonder.constant.EntityType;
@@ -48,9 +47,9 @@ public class GameEntityFactory implements EntityFactory {
     public Entity newWall(SpawnData data) {
         Entity build = FXGL
                 .entityBuilder(data)
+                .type(EntityType.WALL)
                 .bbox(new HitBox(BoundingShape.box(data.<Integer>get("width"), data.<Integer>get("height"))) )
                 .collidable()
-                .with(new PhysicsComponent())
                 .build();
         return build;
     }
